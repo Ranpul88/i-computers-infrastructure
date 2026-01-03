@@ -1,0 +1,24 @@
+services:
+    backend:
+        build: ./i-computers-backend
+        container_name: backend_container
+        ports:
+            - '5000:5000'
+        volumes:
+            - ./i-computers-backend:/app
+            - /app/node_modules
+        env_file:
+            - ./i-computers-backend/.env
+
+    frontend:
+        build: ./i-computers-frontend
+        container_name: frontend_container
+        ports:
+            - '5173:5173'
+        depends_on:
+            - backend
+        volumes:
+            - ./i-computers-frontend:/app
+            - /app/node_modules
+        env_file:
+            - ./i-computers-frontend/.env
